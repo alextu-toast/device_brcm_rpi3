@@ -1,0 +1,15 @@
+# vendor.hellotoast service
+
+# domain for active process.
+type hellotoast, domain;
+# type for inactive files
+# vendor_file_type here is necessary because of the error below:
+# The following types on /vendor/ must be associated with the "vendor_file_type" attribute: hellotoast_exec
+type hellotoast_exec, exec_type, vendor_file_type, file_type;
+
+
+# The marco in te_marcos[1] to transit `init` to `{new domain}` when it forks a file from {new domain}_exec
+# So, the reason here that android not used to name type as {domain}_t is because the marco just expect {domain} and {domain}_exec
+init_daemon_domain(hellotoast)
+
+# [1] https://cs.android.com/android/platform/superproject/+/master:system/sepolicy/public/te_macros
